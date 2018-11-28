@@ -17,17 +17,22 @@ repos.append('/Users/corneria/Documents/Projects/L-Systems')
 repos.append('/Users/corneria/Documents/Projects/PlatformerAI')
 repos.append('/Users/corneria/Documents/Projects/GAHeaderLibrary')
 repos.append('/Users/corneria/Documents/Projects/GithubDailyTracker')
+repos.append('/Users/corneria/Documents/Projects/GithubDailyTracker')
 
 filesChanged = 0
 insertions = 0
 deletions = 0
 
+print
+
 for repo in repos:
     command = "cd " + repo
     command = command + " && git log --shortstat --author "
-    command = command + "\"" + user + "\" --since \"1 day ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
+    command = command + "\"" + user + "\" --since \"1 day ago\" | grep \"changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
     output = subprocess.check_output(command, shell=True)
     split = output.split(" ")
+    # print command
+    print repo, ':', output.rstrip()
     if split[2] != '':
         filesChanged = filesChanged + int(split[2])
     if split[5] != '':
